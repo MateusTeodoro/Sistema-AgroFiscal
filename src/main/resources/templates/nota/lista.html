@@ -7,7 +7,7 @@
     <nav th:replace="~{fragments/layout :: navbar}"></nav>
 
     <main class="container mb-5">
-        
+
         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
             <h2><i class="bi bi-receipt text-success"></i> Gestão de Notas Fiscais</h2>
             <a href="/notas/upload" class="btn btn-success shadow-sm">
@@ -24,6 +24,7 @@
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped mb-0">
+                        
                         <thead class="table-success">
                             <tr>
                                 <th>Número</th>
@@ -34,6 +35,7 @@
                                 <th class="text-center">Ações</th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <tr th:each="nota : ${notas}">
                                 <td class="fw-bold" th:text="${nota.numero}">12345</td>
@@ -46,13 +48,36 @@
                                     <span th:if="${nota.status == 'AGUARDANDO_PAGAMENTO'}" class="badge bg-primary">Aguardando Pagamento</span>
                                     <span th:if="${nota.status == 'PAGA'}" class="badge bg-success">Paga</span>
                                 </td>
+                                
                                 <td class="text-center">
-                                    <button class="btn btn-sm btn-outline-primary" title="Ver Detalhes">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        
+                                        <button class="btn btn-sm btn-outline-secondary" title="Ver Detalhes">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+
+                                        <form th:if="${nota.status == 'PENDENTE'}" th:action="@{/notas/aprovar/{id}(id=${nota.id})}" method="post">
+                                            <button type="submit" class="btn btn-sm btn-warning" title="Aprovar Orçamento">
+                                                <i class="bi bi-check2-circle"></i> Aprovar
+                                            </button>
+                                        </form>
+
+                                        <form th:if="${nota.status == 'AGUARDANDO_ENTREGA'}" th:action="@{/notas/receber/{id}(id=${nota.id})}" method="post">
+                                            <button type="submit" class="btn btn-sm btn-info text-white" title="Confirmar Chegada da Carga">
+                                                <i class="bi bi-box-seam"></i> Receber
+                                            </button>
+                                        </form>
+
+                                        <form th:if="${nota.status == 'AGUARDANDO_PAGAMENTO'}" th:action="@{/notas/pagar/{id}(id=${nota.id})}" method="post">
+                                            <button type="submit" class="btn btn-sm btn-primary" title="Liquidar Pagamento">
+                                                <i class="bi bi-currency-dollar"></i> Pagar
+                                            </button>
+                                        </form>
+                                        
+                                    </div>
                                 </td>
                             </tr>
-                            
+
                             <tr th:if="${#lists.isEmpty(notas)}">
                                 <td colspan="6" class="text-center text-muted py-4">
                                     <i class="bi bi-inbox fs-2 d-block mb-2"></i>
