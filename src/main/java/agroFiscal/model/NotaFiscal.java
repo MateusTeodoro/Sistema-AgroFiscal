@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,4 +37,7 @@ public class NotaFiscal {
     @JoinColumn(name = "fornecedor_id", nullable = false)
     private Fornecedor fornecedor;
     
+    @OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL)
+    private List<ItemNota> itens;
+
 }
