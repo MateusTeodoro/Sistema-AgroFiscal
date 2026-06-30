@@ -18,7 +18,6 @@ public class FornecedorController {
 
     @GetMapping
     public String listar(Model model) {
-        // Busca todos os fornecedores no banco e envia para a tela com o nome "fornecedores"
         model.addAttribute("fornecedores", fornecedorService.listarTodos());
         return "fornecedor/lista"; 
     }
@@ -32,6 +31,6 @@ public class FornecedorController {
     @PostMapping("/salvar")
     public String salvar(Fornecedor fornecedor) {
         fornecedorService.salvar(fornecedor);
-        return "redirect:/fornecedores"; // Redireciona de volta para a tabela
+        return "redirect:/fornecedores";
     }
 }
