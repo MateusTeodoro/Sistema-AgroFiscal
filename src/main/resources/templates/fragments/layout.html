@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head_padrao(titulo)">
     <meta charset="UTF-8">
@@ -41,9 +41,16 @@
                         <a class="nav-link" href="/fornecedores"><i class="bi bi-truck"></i> Fornecedores</a>
                     </li>
                 </ul>
-                <span class="navbar-text text-light">
-                    <i class="bi bi-person-circle"></i> Usuário Logado
-                </span>
+                <div class="d-flex align-items-center gap-3 ms-lg-3 mt-2 mt-lg-0">
+                    <span class="text-light" sec:authorize="isAuthenticated()">
+                        <i class="bi bi-person-circle"></i> <span sec:authentication="name">Usuário</span>
+                    </span>
+                    <form th:action="@{/logout}" method="post" class="m-0">
+                        <button type="submit" class="btn btn-sm btn-outline-light shadow-sm" title="Sair do Sistema">
+                            <i class="bi bi-box-arrow-right"></i> Sair
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
