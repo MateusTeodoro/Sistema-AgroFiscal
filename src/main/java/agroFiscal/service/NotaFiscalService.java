@@ -103,4 +103,9 @@ public class NotaFiscalService {
         nota.setStatus("PAGA");
         notaFiscalRepository.save(nota);
     }
+
+    public NotaFiscal buscarPorId(Long id) {
+        return notaFiscalRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Nota fiscal não encontrada."));
+    }
 }

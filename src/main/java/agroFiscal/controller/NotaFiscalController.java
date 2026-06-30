@@ -80,4 +80,10 @@ public class NotaFiscalController {
         }
         return "redirect:/notas";
     }
+
+    @GetMapping("/detalhes/{id}")
+    public String verDetalhes(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("nota", notaFiscalService.buscarPorId(id));
+        return "nota/detalhes";
+    }
 }

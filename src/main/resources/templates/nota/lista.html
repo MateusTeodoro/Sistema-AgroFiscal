@@ -52,9 +52,9 @@
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-2">
                                         
-                                        <button class="btn btn-sm btn-outline-secondary" title="Ver Detalhes">
+                                        <a th:href="@{/notas/detalhes/{id}(id=${nota.id})}" class="btn btn-sm btn-outline-secondary" title="Ver Detalhes">
                                             <i class="bi bi-eye"></i>
-                                        </button>
+                                        </a>
 
                                         <form th:if="${nota.status == 'PENDENTE'}" th:action="@{/notas/aprovar/{id}(id=${nota.id})}" method="post">
                                             <button type="submit" class="btn btn-sm btn-warning" title="Aprovar Orçamento">

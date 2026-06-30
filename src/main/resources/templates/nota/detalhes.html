@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head_padrao('Detalhes da Nota')}"></head>
+
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+    <main class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+            <h2><i class="bi bi-file-earmark-text text-success"></i> Detalhes da Nota Fiscal</h2>
+            <a href="/notas" class="btn btn-outline-secondary shadow-sm">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+
+        <div class="card shadow-sm col-md-8 mx-auto">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Nota Nº <span th:text="${nota.numero}"></span></h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted fw-bold">Status Atual:</div>
+                    <div class="col-sm-8 text-primary fw-bold" th:text="${nota.status}">PENDENTE</div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted fw-bold">Data de Emissão:</div>
+                    <div class="col-sm-8" th:text="${#temporals.format(nota.dataEmissao, 'dd/MM/yyyy')}"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted fw-bold">Fornecedor (CNPJ):</div>
+                    <div class="col-sm-8">
+                        <span th:text="${nota.fornecedor.razaoSocial}"></span><br>
+                        <small class="text-muted" th:text="${nota.fornecedor.cnpj}"></small>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 text-muted fw-bold">Valor Total:</div>
+                    <div class="col-sm-8 fw-bold text-success fs-5" th:text="|R$ ${#numbers.formatDecimal(nota.valorTotal, 1, 'POINT', 2, 'COMMA')}|"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>
