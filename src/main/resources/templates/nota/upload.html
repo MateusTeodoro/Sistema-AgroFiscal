@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head_padrao('Upload de NF-e')}"></head>
+
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+    <main class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+            <h2><i class="bi bi-cloud-arrow-up text-success"></i> Importar Nota Fiscal (XML)</h2>
+            <a href="/notas" class="btn btn-outline-secondary shadow-sm">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+
+        <div th:if="${erro}" class="alert alert-danger" role="alert" th:text="${erro}"></div>
+        <div th:if="${sucesso}" class="alert alert-success" role="alert" th:text="${sucesso}"></div>
+
+        <div class="card shadow-sm col-md-6 mx-auto mt-4">
+            <div class="card-body p-4 text-center">
+                
+                <i class="bi bi-filetype-xml display-1 text-secondary mb-3"></i>
+                <h5 class="card-title mb-4">Selecione o arquivo XML da SEFAZ</h5>
+
+                <form th:action="@{/notas/processar-xml}" method="post" enctype="multipart/form-data">
+                    
+                    <div class="mb-4 text-start">
+                        <label for="arquivoXml" class="form-label fw-bold">Arquivo .xml</label>
+                        <input class="form-control form-control-lg" type="file" id="arquivoXml" name="arquivoXml" accept=".xml" required>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                            <i class="bi bi-upload"></i> Processar e Salvar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>
