@@ -26,4 +26,8 @@ public class Fornecedor {
 
     @Column(length = 20)
     private String telefone;
+
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    private List<NotaFiscal> notasFiscais;
+
 }
